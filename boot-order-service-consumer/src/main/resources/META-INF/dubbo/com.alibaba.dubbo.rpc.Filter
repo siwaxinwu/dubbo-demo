@@ -1,1 +1,2 @@
 myAuthConsumer=com.roy.filter.MyAuthConsumerFilter
+consumerTokenFilter=com.roy.filter.ConsumerTokenFilter

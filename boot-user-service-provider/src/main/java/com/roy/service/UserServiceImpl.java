@@ -1,24 +1,24 @@
 package com.roy.service;
 
-import com.alibaba.dubbo.config.annotation.Service;
 import com.roy.bean.UserAddress;
-import org.springframework.stereotype.Component;
+import org.apache.dubbo.config.annotation.DubboService;
+import org.apache.dubbo.config.annotation.Method;
 
 import java.util.Arrays;
 import java.util.List;
 
 
-@Service
-@Component
+@DubboService(methods = {@Method(name = "getUserAddressList",
+		parameters = {
+				"auth.token", "dywceshi",
+				"auth.enable", "true"
+		})}
+)
 public class UserServiceImpl implements UserService {
 
-	//@HystrixCommand
 	@Override
 	public List<UserAddress> getUserAddressList(String userId) {
 		UserAddress address = new UserAddress(1, "上海市浦东新区张江集电港", userId, "丁老师", "15371452705", "Y");
-		/*if(Math.random() > 0.5) {
-			throw new RuntimeException();
-		}*/
 		System.out.println(address);
 		return Arrays.asList(address);
 	}

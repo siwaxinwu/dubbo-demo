@@ -1,9 +1,10 @@
 package com.roy.service.impl;
 
-import com.alibaba.dubbo.config.annotation.Reference;
 import com.roy.bean.UserAddress;
 import com.roy.service.OrderService;
 import com.roy.service.UserService;
+import org.apache.dubbo.config.annotation.DubboReference;
+import org.apache.dubbo.config.annotation.Method;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
@@ -12,12 +13,14 @@ import java.util.List;
 @Service
 public class OrderServiceImpl implements OrderService {
 
-	//@Reference(parameters = {"token","123456"})
-	@Reference
-	UserService userService;
+	@DubboReference(timeout = 10000, methods = {@Method(
+			name = "getUserAddressList",
+			parameters = {
+					"auth.token", "dywceshi"
+			})})
+	private UserService userService;
 	
 	@Override
-	//@HystrixCommand(fallbackMethod="callbackFail")
 	public List<UserAddress> initOrder(String userId) {
 		System.out.println("用户id："+userId);
 		List<UserAddress> addressList = userService.getUserAddressList(userId);
