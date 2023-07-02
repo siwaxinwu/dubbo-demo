@@ -1,0 +1,2 @@
+timeLog=com.roy.filter.TimeLogFilter
+myAuthProvider=com.roy.filter.MyAuthProviderFilter

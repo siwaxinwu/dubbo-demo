@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:dubbo="http://dubbo.apache.org/schema/dubbo"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://dubbo.apache.org/schema/dubbo http://dubbo.apache.org/schema/dubbo/dubbo.xsd
+		http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+	<context:component-scan base-package="com.roy"/>
+
+	<dubbo:application name="order-service-consumer"/>
+
+	<dubbo:registry address="zookeeper://1.117.109.40:2181?backup=1.117.109.40:2182,1.117.109.40:2183"/>
+
+	<dubbo:reference interface="com.roy.service.UserService"
+		id="userService" retries="2" version="2.0.0" >
+		<!-- <dubbo:method name="getUserAddressList" timeout="1000"></dubbo:method> -->
+	</dubbo:reference>
+		
+	<!-- 配置当前消费者的统一规则：所有的服务都不检查 -->
+	<!--<dubbo:consumer check="false" timeout="5000"/>-->
+
+	<dubbo:monitor protocol="registry"/>
+	<!-- <dubbo:monitor address="127.0.0.1:7070"></dubbo:monitor> -->
+
+	<dubbo:reference id="helloDubbo"    interface="com.roy.service.HelloDubbo">
+		<!--方法名 是否异步 -->
+		<dubbo:method name="sayHello" async="true"/>
+	</dubbo:reference>
+
+	<bean id="orderService" class="com.roy.service.OrderServiceImpl" />
+
+
+	
+</beans>

@@ -1,0 +1,4 @@
+com/roy/bean/UserAddress.class
+com/roy/service/async/AsyncUserQueryService.class
+com/roy/service/HelloDubbo.class
+com/roy/service/UserService.class
